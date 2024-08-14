@@ -1,7 +1,11 @@
 package services;
 
 import models.TrafficLight;
+import models.Vehicle;
 import queue.VehicleQueue;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Intersection {
     private TrafficLight northLight;
@@ -21,6 +25,8 @@ public class Intersection {
 
     public void simulate() {
         int cycles = 0;
+
+       processPriority1Vehicles();
 
         while (!vehicleQueue.getNorthQueue().isEmpty() || !vehicleQueue.getSouthQueue().isEmpty() ||
                 !vehicleQueue.getEastQueue().isEmpty() || !vehicleQueue.getWestQueue().isEmpty()) {
@@ -50,6 +56,36 @@ public class Intersection {
         System.out.println("East Light Cycles: " + eastLight.getCycleCount());
         System.out.println("West Light Cycles: " + westLight.getCycleCount());
     }
+
+    private boolean processPriority1Vehicles(){
+        boolean hasPriority1Vehicles = false;
+
+        hasPriority1Vehicles |=processPriority1Vehicles(vehicleQueue.getNorthQueue());
+        hasPriority1Vehicles |= processPriority1Vehicles(vehicleQueue.getSouthQueue());
+        hasPriority1Vehicles |= processPriority1Vehicles(vehicleQueue.getEastQueue());
+        hasPriority1Vehicles |= processPriority1Vehicles(vehicleQueue.getWestQueue());
+        return hasPriority1Vehicles;
+    }
+
+    private boolean processPriority1Vehicles(Queue<Vehicle>queue) {
+        boolean processed = false;
+
+        Queue<Vehicle> tempQueue = new LinkedList<>();
+        while (!queue.isEmpty()) {
+            Vehicle vehicle = queue.poll();
+            if (vehicle.getPriority() == 1) {
+                System.out.println("Processing priority 1 vehicle: " + vehicle.getLicensePlate());
+                processed = true;
+            } else {
+                tempQueue.add(vehicle);
+            }
+        }
+        while (!tempQueue.isEmpty()) {
+            queue.add(tempQueue.poll());
+        }
+        return processed;
+    }
+
 
     public static void main(String[] args) {
         Intersection intersection = new Intersection();
