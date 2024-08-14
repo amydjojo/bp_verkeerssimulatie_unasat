@@ -1,10 +1,11 @@
 package app;
 
-import services.VerkeersSimulatieService;
+
+import services.Intersection;
 
 public class Main {
     public static void main(String[] args) {
-        VerkeersSimulatieService verkeersSimulatieService = new VerkeersSimulatieService();
-        verkeersSimulatieService.startSimulatie();
+        Intersection intersection = new Intersection();
+        intersection.simulate();
     }
 }
