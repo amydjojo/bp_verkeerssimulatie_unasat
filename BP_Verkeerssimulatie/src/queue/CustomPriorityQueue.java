@@ -4,6 +4,7 @@ import models.Vehicle;
 
 import java.util.*;
 
+//custom class for priority queue
 public class CustomPriorityQueue implements Queue<Vehicle> {
     private List<Vehicle> queue;
 
@@ -11,6 +12,7 @@ public class CustomPriorityQueue implements Queue<Vehicle> {
         queue = new ArrayList<>();
     }
 
+    @Override
     public boolean add(Vehicle vehicle) {
         int i = 0;
         while (i < queue.size() && queue.get(i).getPriority() <= vehicle.getPriority()) {
@@ -21,45 +23,11 @@ public class CustomPriorityQueue implements Queue<Vehicle> {
     }
 
     @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends Vehicle> c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
     public boolean offer(Vehicle vehicle) {
-        return false;
+        return add(vehicle); // Same as add()
     }
 
     @Override
-    public Vehicle remove() {
-        return null;
-    }
-
     public Vehicle poll() {
         if (queue.isEmpty()) {
             return null;
@@ -68,40 +36,81 @@ public class CustomPriorityQueue implements Queue<Vehicle> {
     }
 
     @Override
-    public Vehicle element() {
-        return null;
+    public Vehicle peek() {
+        if (queue.isEmpty()) {
+            return null;
+        }
+        return queue.get(0);
     }
 
     @Override
-    public Vehicle peek() {
-        return null;
-    }
-
     public boolean isEmpty() {
         return queue.isEmpty();
     }
 
     @Override
+    public int size() {
+        return queue.size();
+    }
+
+    // Methods that are not needed for this implementation can throw UnsupportedOperationException
+    @Override
+    public Vehicle remove() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Vehicle element() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean contains(Object o) {
-        return false;
+        return queue.contains(o);
     }
 
     @Override
     public Iterator<Vehicle> iterator() {
-        return null;
+        return queue.iterator();
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return queue.toArray();
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        return null;
+        return queue.toArray(a);
     }
 
-    public int size() {
-        return queue.size();
+    @Override
+    public boolean remove(Object o) {
+        return queue.remove(o);
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return queue.containsAll(c);
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends Vehicle> c) {
+        return queue.addAll(c);
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return queue.removeAll(c);
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return queue.retainAll(c);
+    }
+
+    @Override
+    public void clear() {
+        queue.clear();
     }
 }

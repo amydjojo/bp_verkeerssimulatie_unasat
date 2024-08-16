@@ -2,6 +2,7 @@ package models;
 
 import java.util.Queue;
 
+//trafficlight class
 public class TrafficLight {
     private String direction;
     private int greenDuration;

@@ -2,10 +2,8 @@ package services;
 
 import models.TrafficLight;
 import models.Vehicle;
+import queue.CustomPriorityQueue;
 import queue.VehicleQueue;
-
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Intersection {
     private TrafficLight northLight;
@@ -17,6 +15,7 @@ public class Intersection {
 
     public Intersection() {
         vehicleQueue = new VehicleQueue();
+
         northLight = new TrafficLight("North", 30, 30, true);
         southLight = new TrafficLight("South", 30, 30, true);
         eastLight = new TrafficLight("East", 30, 30, true);
@@ -26,7 +25,9 @@ public class Intersection {
     public void simulate() {
         int cycles = 0;
 
-       processPriority1Vehicles();
+        processPriority1Vehicles();
+        processPriority2Vehicles();
+        processPriority3Vehicles();
 
         while (!vehicleQueue.getNorthQueue().isEmpty() || !vehicleQueue.getSouthQueue().isEmpty() ||
                 !vehicleQueue.getEastQueue().isEmpty() || !vehicleQueue.getWestQueue().isEmpty()) {
@@ -57,24 +58,15 @@ public class Intersection {
         System.out.println("West Light Cycles: " + westLight.getCycleCount());
     }
 
-    private boolean processPriority1Vehicles(){
-        boolean hasPriority1Vehicles = false;
 
-        hasPriority1Vehicles |=processPriority1Vehicles(vehicleQueue.getNorthQueue());
-        hasPriority1Vehicles |= processPriority1Vehicles(vehicleQueue.getSouthQueue());
-        hasPriority1Vehicles |= processPriority1Vehicles(vehicleQueue.getEastQueue());
-        hasPriority1Vehicles |= processPriority1Vehicles(vehicleQueue.getWestQueue());
-        return hasPriority1Vehicles;
-    }
-
-    private boolean processPriority1Vehicles(Queue<Vehicle>queue) {
+    private boolean processPriorityVehicles(CustomPriorityQueue queue, int priority) {
         boolean processed = false;
 
-        Queue<Vehicle> tempQueue = new LinkedList<>();
+        CustomPriorityQueue tempQueue = new CustomPriorityQueue();
         while (!queue.isEmpty()) {
             Vehicle vehicle = queue.poll();
-            if (vehicle.getPriority() == 1) {
-                System.out.println("Processing priority 1 vehicle: " + vehicle.getLicensePlate());
+            if (vehicle.getPriority() == priority) {
+                System.out.println("Processing priority " + priority + " vehicle: " + vehicle.getLicensePlate());
                 processed = true;
             } else {
                 tempQueue.add(vehicle);
@@ -86,9 +78,52 @@ public class Intersection {
         return processed;
     }
 
+    private boolean processPriority1Vehicles() {
+        boolean hasPriority1Vehicles = false;
 
-    public static void main(String[] args) {
-        Intersection intersection = new Intersection();
-        intersection.simulate();
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 1);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 1);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 1);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 1);
+        return hasPriority1Vehicles;
     }
+
+    private boolean processPriority2Vehicles() {
+        boolean hasPriority2Vehicles = false;
+
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 2);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 2);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 2);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 2);
+        return hasPriority2Vehicles;
+    }
+
+    private boolean processPriority3Vehicles() {
+        boolean hasPriority3Vehicles = false;
+
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 3);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 3);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 3);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 3);
+        return hasPriority3Vehicles;
+    }
+
+//    private boolean processPriorityVehicles(CustomQueue<Vehicle> queue, int priority) {
+//        boolean processed = false;
+//
+//        CustomQueue<Vehicle> tempQueue = new CustomQueue<>();
+//        while (!queue.isEmpty()) {
+//            Vehicle vehicle = queue.dequeue();
+//            if (vehicle.getPriority() == priority) {
+//                System.out.println("Processing priority " + priority + " vehicle: " + vehicle.getLicensePlate());
+//                processed = true;
+//            } else {
+//                tempQueue.enqueue(vehicle);
+//            }
+//        }
+//        while (!tempQueue.isEmpty()) {
+//            queue.enqueue(tempQueue.dequeue());
+//        }
+//        return processed;
+//    }
 }

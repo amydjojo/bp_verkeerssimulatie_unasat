@@ -1,5 +1,6 @@
 package models;
 
+//vehicle class
 public class Vehicle {
     private int sequenceNumber;
     private String licensePlate;
