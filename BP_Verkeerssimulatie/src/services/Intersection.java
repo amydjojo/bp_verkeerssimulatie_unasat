@@ -58,7 +58,6 @@ public class Intersection {
         System.out.println("West Light Cycles: " + westLight.getCycleCount());
     }
 
-
     private boolean processPriorityVehicles(CustomPriorityQueue queue, int priority) {
         boolean processed = false;
 
@@ -107,23 +106,4 @@ public class Intersection {
         hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 3);
         return hasPriority3Vehicles;
     }
-
-//    private boolean processPriorityVehicles(CustomQueue<Vehicle> queue, int priority) {
-//        boolean processed = false;
-//
-//        CustomQueue<Vehicle> tempQueue = new CustomQueue<>();
-//        while (!queue.isEmpty()) {
-//            Vehicle vehicle = queue.dequeue();
-//            if (vehicle.getPriority() == priority) {
-//                System.out.println("Processing priority " + priority + " vehicle: " + vehicle.getLicensePlate());
-//                processed = true;
-//            } else {
-//                tempQueue.enqueue(vehicle);
-//            }
-//        }
-//        while (!tempQueue.isEmpty()) {
-//            queue.enqueue(tempQueue.dequeue());
-//        }
-//        return processed;
-//    }
 }

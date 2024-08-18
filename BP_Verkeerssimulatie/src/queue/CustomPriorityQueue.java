@@ -1,18 +1,17 @@
 package queue;
 
 import models.Vehicle;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
-
-//custom class for priority queue
-public class CustomPriorityQueue implements Queue<Vehicle> {
+// Custom class for priority queue
+public class CustomPriorityQueue {
     private List<Vehicle> queue;
 
     public CustomPriorityQueue() {
         queue = new ArrayList<>();
     }
 
-    @Override
     public boolean add(Vehicle vehicle) {
         int i = 0;
         while (i < queue.size() && queue.get(i).getPriority() <= vehicle.getPriority()) {
@@ -22,12 +21,10 @@ public class CustomPriorityQueue implements Queue<Vehicle> {
         return true;
     }
 
-    @Override
     public boolean offer(Vehicle vehicle) {
         return add(vehicle); // Same as add()
     }
 
-    @Override
     public Vehicle poll() {
         if (queue.isEmpty()) {
             return null;
@@ -35,7 +32,6 @@ public class CustomPriorityQueue implements Queue<Vehicle> {
         return queue.remove(0);
     }
 
-    @Override
     public Vehicle peek() {
         if (queue.isEmpty()) {
             return null;
@@ -43,73 +39,80 @@ public class CustomPriorityQueue implements Queue<Vehicle> {
         return queue.get(0);
     }
 
-    @Override
     public boolean isEmpty() {
         return queue.isEmpty();
     }
 
-    @Override
     public int size() {
         return queue.size();
     }
 
     // Methods that are not needed for this implementation can throw UnsupportedOperationException
-    @Override
     public Vehicle remove() {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public Vehicle element() {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean contains(Object o) {
         return queue.contains(o);
     }
 
-    @Override
-    public Iterator<Vehicle> iterator() {
-        return queue.iterator();
+    // Implement custom containsAll without Collection
+    public boolean containsAll(List<?> c) {
+        for (Object item : c) {
+            if (!queue.contains(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    @Override
-    public Object[] toArray() {
-        return queue.toArray();
+    // Implement custom iterator manually
+    public List<Vehicle> getAllVehicles() {
+        return new ArrayList<>(queue);
     }
 
-    @Override
-    public <T> T[] toArray(T[] a) {
-        return queue.toArray(a);
-    }
-
-    @Override
     public boolean remove(Object o) {
         return queue.remove(o);
     }
 
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return queue.containsAll(c);
+    // Implement custom addAll without Collection
+    public boolean addAll(List<? extends Vehicle> c) {
+        boolean modified = false;
+        for (Vehicle vehicle : c) {
+            if (add(vehicle)) {
+                modified = true;
+            }
+        }
+        return modified;
     }
 
-    @Override
-    public boolean addAll(Collection<? extends Vehicle> c) {
-        return queue.addAll(c);
+    public boolean removeAll(List<?> c) {
+        boolean modified = false;
+        for (Object item : c) {
+            if (queue.remove(item)) {
+                modified = true;
+            }
+        }
+        return modified;
     }
 
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return queue.removeAll(c);
+    public boolean retainAll(List<?> c) {
+        boolean modified = false;
+        List<Vehicle> toRemove = new ArrayList<>();
+        for (Vehicle vehicle : queue) {
+            if (!c.contains(vehicle)) {
+                toRemove.add(vehicle);
+                modified = true;
+            }
+        }
+        queue.removeAll(toRemove);
+        return modified;
     }
 
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return queue.retainAll(c);
-    }
-
-    @Override
     public void clear() {
         queue.clear();
     }

@@ -13,12 +13,6 @@ public class Node<T> {
         this.previous = null;
     }
 
-    // Constructor for doubly linked list node
-    public Node(T data, Node<T> next, Node<T> previous) {
-        this.data = data;
-        this.next = next;
-        this.previous = previous;
-    }
 
     public T getData() {
         return data;

@@ -1,7 +1,7 @@
 package queue;
 
 import models.Vehicle;
-//vehicle queue class
+
 
 public class VehicleQueue {
     private CustomPriorityQueue northQueue;

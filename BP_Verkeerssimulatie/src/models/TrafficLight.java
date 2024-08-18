@@ -1,8 +1,9 @@
 package models;
 
-import java.util.Queue;
+import queue.CustomPriorityQueue;
 
-//trafficlight class
+
+
 public class TrafficLight {
     private String direction;
     private int greenDuration;
@@ -36,7 +37,7 @@ public class TrafficLight {
         return cycleCount;
     }
 
-    public void simulateTraffic(Queue<Vehicle> queue) {
+    public void simulateTraffic(CustomPriorityQueue queue) {
         // South sensor logic
         if (hasSensor && direction.equals("South")) {
             if (queue.size() > 10 && vehiclesToClear == 0) {
