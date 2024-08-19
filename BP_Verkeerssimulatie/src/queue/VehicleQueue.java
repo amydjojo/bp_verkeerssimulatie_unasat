@@ -23,22 +23,22 @@ public class VehicleQueue {
     }
 
     private void initializeVehicles() {
-        vehicles = new Vehicle[41]; // Total number of vehicles
+        vehicles = new Vehicle[43]; // Total number of vehicles
 
         int index = 0;
 
         // North vehicles
         vehicles[index++] = new Vehicle(index, "XP-09-90", 4);
         vehicles[index++] = new Vehicle(index, "AB-12-91", 4);
-        vehicles[index++] = new Vehicle(index, "CD-34-92", 4);
         vehicles[index++] = new Vehicle(index, "Ambulance", 3);
+        vehicles[index++] = new Vehicle(index, "CD-34-92", 4);
 
         // South vehicles
         vehicles[index++] = new Vehicle(index, "GH-78-94", 4);
         vehicles[index++] = new Vehicle(index, "IJ-90-95", 4);
         vehicles[index++] = new Vehicle(index, "KL-12-96", 4);
         vehicles[index++] = new Vehicle(index, "MN-34-97", 4);
-        vehicles[index++] = new Vehicle(index, "Politie", 1);
+        vehicles[index++] = new Vehicle(index, "OP-56-98", 4);
         vehicles[index++] = new Vehicle(index, "QR-78-99", 4);
         vehicles[index++] = new Vehicle(index, "ST-90-00", 4);
         vehicles[index++] = new Vehicle(index, "UV-12-01", 4);
@@ -50,11 +50,13 @@ public class VehicleQueue {
         vehicles[index++] = new Vehicle(index, "DD-34-07", 4);
         vehicles[index++] = new Vehicle(index, "EE-56-08", 4);
         vehicles[index++] = new Vehicle(index, "FF-78-09", 4);
+        vehicles[index++] = new Vehicle(index, "Brandweer", 2);
+        vehicles[index++] = new Vehicle(index, "CC-78-09", 4);
 
         // East vehicles
         vehicles[index++] = new Vehicle(index, "GG-90-10", 4);
         vehicles[index++] = new Vehicle(index, "HH-12-11", 4);
-        vehicles[index++] = new Vehicle(index, "Brandweer", 2);
+        vehicles[index++] = new Vehicle(index, "II-34-12", 4);
         vehicles[index++] = new Vehicle(index, "JJ-56-13", 4);
         vehicles[index++] = new Vehicle(index, "KK-78-14", 4);
 
@@ -67,13 +69,12 @@ public class VehicleQueue {
         vehicles[index++] = new Vehicle(index, "QQ-90-20", 4);
         vehicles[index++] = new Vehicle(index, "RR-12-21", 4);
         vehicles[index++] = new Vehicle(index, "SS-34-22", 4);
-        vehicles[index++] = new Vehicle(index, "TT-56-23", 4);
+        vehicles[index++] = new Vehicle(index, "Politie", 1);
         vehicles[index++] = new Vehicle(index, "UU-78-24", 4);
         vehicles[index++] = new Vehicle(index, "VV-90-25", 4);
         vehicles[index++] = new Vehicle(index, "WW-12-26", 4);
         vehicles[index++] = new Vehicle(index, "XX-34-27", 4);
         vehicles[index++] = new Vehicle(index, "YY-56-28", 4);
-        vehicles[index++] = new Vehicle(index, "ZZ-78-29", 4);
     }
 
     private void populateQueues() {
@@ -84,17 +85,17 @@ public class VehicleQueue {
         northQueue.add(vehicles[3]);
 
         // South vehicles
-        for (int i = 4; i < 19; i++) {
+        for (int i = 3; i < 21; i++) {
             southQueue.add(vehicles[i]);
         }
 
         // East vehicles
-        for (int i = 19; i < 24; i++) {
+        for (int i = 21; i < 26; i++) {
             eastQueue.add(vehicles[i]);
         }
 
         // West vehicles
-        for (int i = 24; i < 39; i++) {
+        for (int i = 26; i < 41; i++) {
             westQueue.add(vehicles[i]);
         }
     }

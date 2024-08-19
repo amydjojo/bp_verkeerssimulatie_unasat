@@ -37,6 +37,8 @@ public class TrafficLight {
         return cycleCount;
     }
 
+
+
     public void simulateTraffic(CustomPriorityQueue queue) {
         // South sensor logic
         if (hasSensor && direction.equals("South")) {
@@ -94,11 +96,21 @@ public class TrafficLight {
         }
 
         // Default behavior when no special conditions are met
+        int maxVehiclesToProcess = 5; // Duration of 5 cars
         if (!queue.isEmpty()) {
             System.out.println("----------------------------------------------------------- ");
             System.out.println("Green light for " + direction + " road.");
-            Vehicle vehicle = queue.poll();
-            System.out.println("Vehicle " + vehicle.getLicensePlate() + " processed.");
+            int count = 0;
+            while (!queue.isEmpty() && count < maxVehiclesToProcess) {
+                Vehicle vehicle = queue.poll();
+                System.out.println("Processing vehicle " + vehicle.getLicensePlate() + " at " + direction + " road.");
+                count++;
+            }
+            if (queue.isEmpty()) {
+                System.out.println("No more vehicles on " + direction + " road. Light will turn red.");
+            } else {
+                System.out.println("Processed 5 vehicles, light will turn red.");
+            }
         } else {
             System.out.println("No vehicles on " + direction + " road. Light stays red.");
         }
