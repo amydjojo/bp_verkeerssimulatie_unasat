@@ -6,27 +6,15 @@ import queue.CustomPriorityQueue;
 
 public class TrafficLight {
     private String direction;
-    private int greenDuration;
-    private int redDuration;
     private int cycleCount;
     private boolean hasSensor;
     private int vehiclesToClear;
 
-    public TrafficLight(String direction, int greenDuration, int redDuration, boolean hasSensor) {
+    public TrafficLight(String direction, boolean hasSensor) {
         this.direction = direction;
-        this.greenDuration = greenDuration;
-        this.redDuration = redDuration;
         this.cycleCount = 0;
         this.hasSensor = hasSensor;
         this.vehiclesToClear = 0;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public boolean hasSensor() {
-        return hasSensor;
     }
 
     public void incrementCycleCount() {
@@ -40,79 +28,83 @@ public class TrafficLight {
 
 
     public void simulateTraffic(CustomPriorityQueue queue) {
-        // South sensor logic
+
+        // Zuid sensor
         if (hasSensor && direction.equals("South")) {
             if (queue.size() > 10 && vehiclesToClear == 0) {
                 vehiclesToClear = 10;
             }
             if (vehiclesToClear > 0) {
                 System.out.println("----------------------------------------------------------- ");
-                System.out.println("South sensor detected more than 10 vehicles. Light remains green.");
+                System.out.println("South sensor detected more than 10 vehicles. ");
                 while (vehiclesToClear > 0 && !queue.isEmpty()) {
                     Vehicle vehicle = queue.poll();
-                    System.out.println("Processing vehicle " + vehicle.getLicensePlate() + " at " + direction + " road.");
+                    System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
                     vehiclesToClear--;
                 }
                 return;
             }
         }
 
-        // East sensor logic
+        // Oost sensor
         if (hasSensor && direction.equals("East") && queue.isEmpty()) {
             System.out.println("----------------------------------------------------------- ");
-            System.out.println("Sensor detected no vehicles on " + direction + " road. Light stays red.");
+            System.out.println("Sensor detected no vehicles on " + direction );
             System.out.println("----------------------------------------------------------- ");
             return;
         }
 
-        // West sensor logic
+        // West sensor
         if (hasSensor && direction.equals("West")) {
             if (queue.size() > 10 && vehiclesToClear == 0) {
                 vehiclesToClear = 10;
             }
             if (vehiclesToClear > 0) {
-                System.out.println("West sensor detected more than 10 vehicles. Light remains green.");
+                System.out.println("----------------------------------------------------------- ");
+                System.out.println("West sensor detected more than 10 vehicles. ");
                 while (vehiclesToClear > 0 && !queue.isEmpty()) {
                     Vehicle vehicle = queue.poll();
-                    System.out.println("Processing vehicle " + vehicle.getLicensePlate() + " at " + direction + " road.");
+                    System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
                     vehiclesToClear--;
                 }
                 return;
             }
             if (queue.isEmpty()) {
-                System.out.println("Sensor detected no vehicles on " + direction + " road. Light stays red.");
+                System.out.println("----------------------------------------------------------- ");
+                System.out.println("Sensor detected no vehicles on " + direction );
+                System.out.println("----------------------------------------------------------- ");
                 return;
             }
         }
 
-        // North sensor logic
+        // Noord sensor
         if (hasSensor && direction.equals("North") && queue.size() < 5 && !queue.isEmpty()) {
-            System.out.println("North sensor detected fewer than 5 vehicles. Light remains green until all vehicles have left.");
+            System.out.println("North sensor detected fewer than 5 vehicles. ");
             while (!queue.isEmpty()) {
                 Vehicle vehicle = queue.poll();
-                System.out.println("Processing vehicle " + vehicle.getLicensePlate() + " at " + direction + " road.");
+                System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
             }
             return;
         }
 
-        // Default behavior when no special conditions are met
-        int maxVehiclesToProcess = 5; // Duration of 5 cars
+        // Default behavior
+        int maxVehiclesToProcess = 5;
         if (!queue.isEmpty()) {
             System.out.println("----------------------------------------------------------- ");
             System.out.println("Green light for " + direction + " road.");
             int count = 0;
             while (!queue.isEmpty() && count < maxVehiclesToProcess) {
                 Vehicle vehicle = queue.poll();
-                System.out.println("Processing vehicle " + vehicle.getLicensePlate() + " at " + direction + " road.");
+                System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
                 count++;
             }
             if (queue.isEmpty()) {
-                System.out.println("No more vehicles on " + direction + " road. Light will turn red.");
-            } else {
-                System.out.println("Processed 5 vehicles, light will turn red.");
+
+                System.out.println("No more vehicles on " + direction + " road. ");
             }
         } else {
-            System.out.println("No vehicles on " + direction + " road. Light stays red.");
+            System.out.println("----------------------------------------------------------- ");
+            System.out.println("No vehicles on " + direction + " road.");
         }
     }
 }

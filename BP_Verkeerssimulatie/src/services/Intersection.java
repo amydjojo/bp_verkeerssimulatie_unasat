@@ -16,10 +16,10 @@ public class Intersection {
     public Intersection() {
         vehicleQueue = new VehicleQueue();
 
-        northLight = new TrafficLight("North", 30, 30, true);
-        southLight = new TrafficLight("South", 30, 30, true);
-        eastLight = new TrafficLight("East", 30, 30, true);
-        westLight = new TrafficLight("West", 30, 30, true);
+        northLight = new TrafficLight("North",  true);
+        southLight = new TrafficLight("South",  true);
+        eastLight = new TrafficLight("East",  true);
+        westLight = new TrafficLight("West",  true);
     }
 
     public void simulate() {
@@ -31,8 +31,9 @@ public class Intersection {
 
         while (!vehicleQueue.getNorthQueue().isEmpty() || !vehicleQueue.getSouthQueue().isEmpty() ||
                 !vehicleQueue.getEastQueue().isEmpty() || !vehicleQueue.getWestQueue().isEmpty()) {
-
+            System.out.println("-------------------------------------------------------------------------" );
             System.out.println("Cycle " + (++cycles));
+            System.out.println("-------------------------------------------------------------------------" );
 
             // Simulate North
             northLight.simulateTraffic(vehicleQueue.getNorthQueue());
@@ -65,7 +66,7 @@ public class Intersection {
         while (!queue.isEmpty()) {
             Vehicle vehicle = queue.poll();
             if (vehicle.getPriority() == priority) {
-                System.out.println("Processing priority " + priority + " vehicle: " + vehicle.getLicensePlate());
+                System.out.println(" priority " + priority + " vehicle: " + vehicle.getLicensePlate());
                 processed = true;
             } else {
                 tempQueue.add(vehicle);

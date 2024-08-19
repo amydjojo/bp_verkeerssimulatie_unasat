@@ -27,13 +27,13 @@ public class VehicleQueue {
 
         int index = 0;
 
-        // North vehicles
+        // Noord autos
         vehicles[index++] = new Vehicle(index, "XP-09-90", 4);
         vehicles[index++] = new Vehicle(index, "AB-12-91", 4);
         vehicles[index++] = new Vehicle(index, "Ambulance", 3);
         vehicles[index++] = new Vehicle(index, "CD-34-92", 4);
 
-        // South vehicles
+        // Zuid autos
         vehicles[index++] = new Vehicle(index, "GH-78-94", 4);
         vehicles[index++] = new Vehicle(index, "IJ-90-95", 4);
         vehicles[index++] = new Vehicle(index, "KL-12-96", 4);
@@ -53,14 +53,14 @@ public class VehicleQueue {
         vehicles[index++] = new Vehicle(index, "Brandweer", 2);
         vehicles[index++] = new Vehicle(index, "CC-78-09", 4);
 
-        // East vehicles
+        // Oost autos
         vehicles[index++] = new Vehicle(index, "GG-90-10", 4);
         vehicles[index++] = new Vehicle(index, "HH-12-11", 4);
         vehicles[index++] = new Vehicle(index, "II-34-12", 4);
         vehicles[index++] = new Vehicle(index, "JJ-56-13", 4);
         vehicles[index++] = new Vehicle(index, "KK-78-14", 4);
 
-        // West vehicles
+        // West autos
         vehicles[index++] = new Vehicle(index, "LL-90-15", 4);
         vehicles[index++] = new Vehicle(index, "MM-12-16", 4);
         vehicles[index++] = new Vehicle(index, "NN-34-17", 4);
