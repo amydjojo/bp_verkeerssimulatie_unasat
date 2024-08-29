@@ -1,5 +1,6 @@
 package queue;
 
+import datastructures.CustomPriorityQueue;
 import models.Vehicle;
 
 

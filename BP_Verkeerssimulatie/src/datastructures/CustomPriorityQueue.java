@@ -1,4 +1,4 @@
-package queue;
+package datastructures;
 
 import models.Vehicle;
 import java.util.ArrayList;

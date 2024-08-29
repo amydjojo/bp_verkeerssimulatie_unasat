@@ -1,6 +1,6 @@
 package models;
 
-import queue.CustomPriorityQueue;
+import datastructures.CustomPriorityQueue;
 
 
 

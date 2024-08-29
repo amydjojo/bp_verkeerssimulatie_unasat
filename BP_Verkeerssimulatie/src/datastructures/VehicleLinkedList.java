@@ -1,6 +1,4 @@
-package queue;
-
-import models.Node;
+package datastructures;
 
 public class VehicleLinkedList <T>{
     private Node<T> head;
@@ -13,6 +11,7 @@ public class VehicleLinkedList <T>{
         this.size = 0;
     }
 
+    // Add an element to the end of the list
     public void add(T data) {
         Node<T> newNode = new Node<>(data);
         if (tail == null) {
@@ -22,6 +21,33 @@ public class VehicleLinkedList <T>{
             tail = newNode;
         }
         size++;
+    }
+    // Add an element to the front of the list
+    public void addFirst(T data) {
+        Node<T> newNode = new Node<>(data);
+        if (head == null) {
+            head = tail = newNode;
+        } else {
+            newNode.setNext(head);
+            head = newNode;
+        }
+        size++;
+    }
+    // Remove and return the first element
+    public T removeFirst() {
+        T data = head.getData();
+        head = head.getNext();
+        if (head == null) {
+            tail = null;
+        }
+        size--;
+        return data;
+    }
+
+    // Get the first element without removing it
+    public T getFirst() {
+
+        return head.getData();
     }
 
     public T remove() {
