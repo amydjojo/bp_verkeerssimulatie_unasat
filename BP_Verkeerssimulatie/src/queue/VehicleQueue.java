@@ -24,7 +24,7 @@ public class VehicleQueue {
     }
 
     private void initializeVehicles() {
-        vehicles = new Vehicle[43]; // Total number of vehicles
+        vehicles = new Vehicle[41]; // Total number of vehicles
 
         int index = 0;
 
@@ -79,24 +79,23 @@ public class VehicleQueue {
     }
 
     private void populateQueues() {
-        // North vehicles
-        northQueue.add(vehicles[0]);
-        northQueue.add(vehicles[1]);
-        northQueue.add(vehicles[2]);
-        northQueue.add(vehicles[3]);
+        // North vehicles (4 vehicles)
+        for (int i = 0; i < 4; i++) {
+            northQueue.add(vehicles[i]);
+        }
 
         // South vehicles
-        for (int i = 3; i < 21; i++) {
+        for (int i = 4; i < 22; i++) {
             southQueue.add(vehicles[i]);
         }
 
         // East vehicles
-        for (int i = 21; i < 26; i++) {
+        for (int i = 22; i < 27; i++) {
             eastQueue.add(vehicles[i]);
         }
 
         // West vehicles
-        for (int i = 26; i < 41; i++) {
+        for (int i = 27; i < 41; i++) {
             westQueue.add(vehicles[i]);
         }
     }

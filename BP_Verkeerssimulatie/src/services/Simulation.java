@@ -2,9 +2,9 @@ package services;
 
 import models.TrafficLight;
 import models.Vehicle;
-import datastructures.CustomPriorityQueue;
+import queue.CustomPriorityQueue;
 import queue.VehicleQueue;
-import datastructures.VehicleStack;
+import queue.VehicleStack;
 
 public class Simulation {
     private TrafficLight northLight;
@@ -13,47 +13,48 @@ public class Simulation {
     private TrafficLight westLight;
 
     private VehicleQueue vehicleQueue;
+    private VehicleStack playbackStack;
 
     public Simulation() {
         vehicleQueue = new VehicleQueue();
+        playbackStack = new VehicleStack(1000);
 
-        northLight = new TrafficLight("North",  true);
-        southLight = new TrafficLight("South",  true);
-        eastLight = new TrafficLight("East",  true);
-        westLight = new TrafficLight("West",  true);
+        northLight = new TrafficLight("North", true);
+        southLight = new TrafficLight("South", true);
+        eastLight = new TrafficLight("East", true);
+        westLight = new TrafficLight("West", true);
     }
 
     public void simulate() {
         int cycles = 0;
 
-        // Initialize the stack to store processed vehicles
-        VehicleStack processedVehiclesStack = new VehicleStack();
-
-        processPriority1Vehicles(processedVehiclesStack);
-        processPriority2Vehicles(processedVehiclesStack);
-        processPriority3Vehicles(processedVehiclesStack);
-
-        processPriority4Vehicles(processedVehiclesStack);
+        processPriority1Vehicles();
+        processPriority2Vehicles();
+        processPriority3Vehicles();
 
         while (!vehicleQueue.getNorthQueue().isEmpty() || !vehicleQueue.getSouthQueue().isEmpty() ||
                 !vehicleQueue.getEastQueue().isEmpty() || !vehicleQueue.getWestQueue().isEmpty()) {
-            System.out.println("-------------------------------------------------------------------------" );
+            System.out.println("-------------------------------------------------------------------------");
             System.out.println("Cycle " + (++cycles));
-            System.out.println("-------------------------------------------------------------------------" );
+            System.out.println("-------------------------------------------------------------------------");
 
             // Simulate North
+            processVehiclesForPlayback(vehicleQueue.getNorthQueue(), "North");
             northLight.simulateTraffic(vehicleQueue.getNorthQueue());
             northLight.incrementCycleCount();
 
             // Simulate South
+            processVehiclesForPlayback(vehicleQueue.getSouthQueue(), "South");
             southLight.simulateTraffic(vehicleQueue.getSouthQueue());
             southLight.incrementCycleCount();
 
             // Simulate East
+            processVehiclesForPlayback(vehicleQueue.getEastQueue(), "East");
             eastLight.simulateTraffic(vehicleQueue.getEastQueue());
             eastLight.incrementCycleCount();
 
             // Simulate West
+            processVehiclesForPlayback(vehicleQueue.getWestQueue(), "West");
             westLight.simulateTraffic(vehicleQueue.getWestQueue());
             westLight.incrementCycleCount();
         }
@@ -64,12 +65,10 @@ public class Simulation {
         System.out.println("East Light Cycles: " + eastLight.getCycleCount());
         System.out.println("West Light Cycles: " + westLight.getCycleCount());
 
-        // Perform reverse playback
-        reversePlayback(processedVehiclesStack);
-
+        reversePlayback();
     }
 
-    private boolean processPriorityVehicles(CustomPriorityQueue queue, int priority, VehicleStack processedVehiclesStack) {
+    private boolean processPriorityVehicles(CustomPriorityQueue queue, int priority) {
         boolean processed = false;
 
         CustomPriorityQueue tempQueue = new CustomPriorityQueue();
@@ -77,10 +76,8 @@ public class Simulation {
             Vehicle vehicle = queue.poll();
             if (vehicle.getPriority() == priority) {
                 System.out.println(" priority " + priority + " vehicle: " + vehicle.getLicensePlate());
-                processedVehiclesStack.push(vehicle); // Push processed vehicle to stack
-                System.out.println("Pushed to stack: " + vehicle.getLicensePlate());
-
                 processed = true;
+                playbackStack.push(vehicle, getQueueDirection(queue)); // Pass direction to push
             } else {
                 tempQueue.add(vehicle);
             }
@@ -91,50 +88,65 @@ public class Simulation {
         return processed;
     }
 
-    private boolean processPriority1Vehicles(VehicleStack processedVehiclesStack) {
+    private boolean processPriority1Vehicles() {
         boolean hasPriority1Vehicles = false;
 
-        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 1, processedVehiclesStack);
-        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 1, processedVehiclesStack);
-        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 1, processedVehiclesStack);
-        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 1, processedVehiclesStack);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 1);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 1);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 1);
+        hasPriority1Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 1);
         return hasPriority1Vehicles;
     }
 
-    private boolean processPriority2Vehicles(VehicleStack processedVehiclesStack) {
+    private boolean processPriority2Vehicles() {
         boolean hasPriority2Vehicles = false;
 
-        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 2, processedVehiclesStack);
-        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 2, processedVehiclesStack);
-        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 2, processedVehiclesStack);
-        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 2,  processedVehiclesStack);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 2);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 2);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 2);
+        hasPriority2Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 2);
         return hasPriority2Vehicles;
     }
 
-    private boolean processPriority3Vehicles(VehicleStack processedVehiclesStack) {
+    private boolean processPriority3Vehicles() {
         boolean hasPriority3Vehicles = false;
 
-        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 3, processedVehiclesStack);
-        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 3, processedVehiclesStack);
-        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 3, processedVehiclesStack);
-        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 3, processedVehiclesStack);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getNorthQueue(), 3);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getSouthQueue(), 3);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getEastQueue(), 3);
+        hasPriority3Vehicles |= processPriorityVehicles(vehicleQueue.getWestQueue(), 3);
         return hasPriority3Vehicles;
     }
 
-    private void processPriority4Vehicles(VehicleStack processedVehiclesStack) {
-        System.out.println("Processing non-priority vehicles...");
-        processPriorityVehicles(vehicleQueue.getNorthQueue(), 4, processedVehiclesStack);
-        processPriorityVehicles(vehicleQueue.getSouthQueue(), 4, processedVehiclesStack);
-        processPriorityVehicles(vehicleQueue.getEastQueue(), 4, processedVehiclesStack);
-        processPriorityVehicles(vehicleQueue.getWestQueue(), 4, processedVehiclesStack);
+    private void processVehiclesForPlayback(CustomPriorityQueue queue, String direction) {
+        CustomPriorityQueue tempQueue = new CustomPriorityQueue();
+
+        while (!queue.isEmpty()) {
+            Vehicle vehicle = queue.poll();
+            playbackStack.push(vehicle, direction); // Pass direction to push method
+            tempQueue.add(vehicle);
+        }
+
+        while (!tempQueue.isEmpty()) {
+            queue.add(tempQueue.poll());
+        }
     }
 
-    private void reversePlayback(VehicleStack processedVehiclesStack) {
-        System.out.println("Starting reverse playback...");
-        while (!processedVehiclesStack.isEmpty()) {
-            Vehicle vehicle = processedVehiclesStack.pop();
-            System.out.println("Replaying vehicle: " + vehicle.getLicensePlate() + " with priority " + vehicle.getPriority());
+    private void reversePlayback() {
+        System.out.println("Starting reverse playback");
+        while (!playbackStack.isEmpty()) {
+            Vehicle vehicle = playbackStack.pop();
+            String direction = playbackStack.popDirection();
+            System.out.println("Playback vehicle: " + vehicle.getLicensePlate() + " with " + vehicle.getPriority() + " priority from " + direction + " road.");
         }
-        System.out.println("Reverse playback complete.");
+    }
+
+    // Helper method to get the direction from the queue object
+    private String getQueueDirection(CustomPriorityQueue queue) {
+        if (queue == vehicleQueue.getNorthQueue()) return "North";
+        if (queue == vehicleQueue.getSouthQueue()) return "South";
+        if (queue == vehicleQueue.getEastQueue()) return "East";
+        if (queue == vehicleQueue.getWestQueue()) return "West";
+        return "Unknown";
     }
 }
