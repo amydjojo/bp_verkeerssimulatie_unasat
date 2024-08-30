@@ -6,7 +6,7 @@ import datastructures.CustomPriorityQueue;
 import queue.VehicleQueue;
 import datastructures.VehicleStack;
 
-public class Intersection {
+public class Simulation {
     private TrafficLight northLight;
     private TrafficLight southLight;
     private TrafficLight eastLight;
@@ -14,7 +14,7 @@ public class Intersection {
 
     private VehicleQueue vehicleQueue;
 
-    public Intersection() {
+    public Simulation() {
         vehicleQueue = new VehicleQueue();
 
         northLight = new TrafficLight("North",  true);

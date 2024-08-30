@@ -1,11 +1,11 @@
 package app;
 
 
-import services.Intersection;
+import services.Simulation;
 
 public class Main {
     public static void main(String[] args) {
-        Intersection intersection = new Intersection();
-        intersection.simulate();
+        Simulation simulation = new Simulation();
+        simulation.simulate();
     }
 }
