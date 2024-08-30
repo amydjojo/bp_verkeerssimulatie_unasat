@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Custom class for priority queue
-public class CustomPriorityQueue {
+public class CustomQueue {
     private List<Vehicle> queue;
 
-    public CustomPriorityQueue() {
+    public CustomQueue() {
         queue = new ArrayList<>();
     }
 

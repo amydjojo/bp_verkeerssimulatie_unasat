@@ -2,9 +2,9 @@ package services;
 
 import models.TrafficLight;
 import models.Vehicle;
-import queue.CustomPriorityQueue;
+import datastructures.CustomQueue;
 import queue.VehicleQueue;
-import queue.VehicleStack;
+import datastructures.VehicleStack;
 
 public class Simulation {
     private TrafficLight northLight;
@@ -68,10 +68,10 @@ public class Simulation {
         reversePlayback();
     }
 
-    private boolean processPriorityVehicles(CustomPriorityQueue queue, int priority) {
+    private boolean processPriorityVehicles(CustomQueue queue, int priority) {
         boolean processed = false;
 
-        CustomPriorityQueue tempQueue = new CustomPriorityQueue();
+        CustomQueue tempQueue = new CustomQueue();
         while (!queue.isEmpty()) {
             Vehicle vehicle = queue.poll();
             if (vehicle.getPriority() == priority) {
@@ -118,8 +118,8 @@ public class Simulation {
         return hasPriority3Vehicles;
     }
 
-    private void processVehiclesForPlayback(CustomPriorityQueue queue, String direction) {
-        CustomPriorityQueue tempQueue = new CustomPriorityQueue();
+    private void processVehiclesForPlayback(CustomQueue queue, String direction) {
+        CustomQueue tempQueue = new CustomQueue();
 
         while (!queue.isEmpty()) {
             Vehicle vehicle = queue.poll();
@@ -142,7 +142,7 @@ public class Simulation {
     }
 
     // Helper method to get the direction from the queue object
-    private String getQueueDirection(CustomPriorityQueue queue) {
+    private String getQueueDirection(CustomQueue queue) {
         if (queue == vehicleQueue.getNorthQueue()) return "North";
         if (queue == vehicleQueue.getSouthQueue()) return "South";
         if (queue == vehicleQueue.getEastQueue()) return "East";

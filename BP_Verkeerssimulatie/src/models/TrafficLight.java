@@ -1,6 +1,6 @@
 package models;
 
-import datastructures.CustomPriorityQueue;
+import datastructures.CustomQueue;
 
 
 
@@ -27,7 +27,7 @@ public class TrafficLight {
 
 
 
-    public void simulateTraffic(CustomPriorityQueue queue) {
+    public void simulateTraffic(CustomQueue queue) {
 
         // Zuid sensor
         if (hasSensor && direction.equals("South")) {

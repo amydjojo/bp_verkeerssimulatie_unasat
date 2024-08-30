@@ -1,22 +1,22 @@
 package queue;
 
-import datastructures.CustomPriorityQueue;
+import datastructures.CustomQueue;
 import models.Vehicle;
 
 
 public class VehicleQueue {
-    private CustomPriorityQueue northQueue;
-    private CustomPriorityQueue southQueue;
-    private CustomPriorityQueue eastQueue;
-    private CustomPriorityQueue westQueue;
+    private CustomQueue northQueue;
+    private CustomQueue southQueue;
+    private CustomQueue eastQueue;
+    private CustomQueue westQueue;
 
     private Vehicle[] vehicles;
 
     public VehicleQueue() {
-        northQueue = new CustomPriorityQueue();
-        southQueue = new CustomPriorityQueue();
-        eastQueue = new CustomPriorityQueue();
-        westQueue = new CustomPriorityQueue();
+        northQueue = new CustomQueue();
+        southQueue = new CustomQueue();
+        eastQueue = new CustomQueue();
+        westQueue = new CustomQueue();
 
         initializeVehicles();
         populateQueues();
@@ -109,19 +109,19 @@ public class VehicleQueue {
         System.out.println("----------------------------------------------------------- ");
     }
 
-    public CustomPriorityQueue getNorthQueue() {
+    public CustomQueue getNorthQueue() {
         return northQueue;
     }
 
-    public CustomPriorityQueue getSouthQueue() {
+    public CustomQueue getSouthQueue() {
         return southQueue;
     }
 
-    public CustomPriorityQueue getEastQueue() {
+    public CustomQueue getEastQueue() {
         return eastQueue;
     }
 
-    public CustomPriorityQueue getWestQueue() {
+    public CustomQueue getWestQueue() {
         return westQueue;
     }
 }
