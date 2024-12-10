@@ -77,7 +77,7 @@ public class Simulation {
             if (vehicle.getPriority() == priority) {
                 System.out.println(" priority " + priority + " vehicle: " + vehicle.getLicensePlate());
                 processed = true;
-                playbackStack.push(vehicle, getQueueDirection(queue)); // Pass direction to push
+                playbackStack.push(vehicle, getQueueDirection(queue));
             } else {
                 tempQueue.add(vehicle);
             }
@@ -123,7 +123,7 @@ public class Simulation {
 
         while (!queue.isEmpty()) {
             Vehicle vehicle = queue.poll();
-            playbackStack.push(vehicle, direction); // Pass direction to push method
+            playbackStack.push(vehicle, direction);
             tempQueue.add(vehicle);
         }
 
