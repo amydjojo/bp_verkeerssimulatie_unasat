@@ -19,9 +19,9 @@ public class Simulation {
         vehicleQueue = new VehicleQueue();
         playbackStack = new VehicleStack(100);
 
-        northLight = new TrafficLight("North", true);
-        southLight = new TrafficLight("South", true);
-        eastLight = new TrafficLight("East", true);
+        northLight = new TrafficLight("Noord", true);
+        southLight = new TrafficLight("Zuid", true);
+        eastLight = new TrafficLight("Oost", true);
         westLight = new TrafficLight("West", true);
     }
 
@@ -143,9 +143,9 @@ public class Simulation {
 
     // Helper method to get the direction from the queue object
     private String getQueueDirection(CustomQueue queue) {
-        if (queue == vehicleQueue.getNorthQueue()) return "North";
-        if (queue == vehicleQueue.getSouthQueue()) return "South";
-        if (queue == vehicleQueue.getEastQueue()) return "East";
+        if (queue == vehicleQueue.getNorthQueue()) return "Noord";
+        if (queue == vehicleQueue.getSouthQueue()) return "Zuid";
+        if (queue == vehicleQueue.getEastQueue()) return "Oost";
         if (queue == vehicleQueue.getWestQueue()) return "West";
         return "Unknown";
     }

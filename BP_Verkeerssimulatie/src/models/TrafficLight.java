@@ -30,7 +30,7 @@ public class TrafficLight {
     public void simulateTraffic(CustomQueue queue) {
 
         // Zuid sensor
-        if (hasSensor && direction.equals("South")) {
+        if (hasSensor && direction.equals("Zuid")) {
             if (queue.size() > 10 && vehiclesToClear == 0) {
                 vehiclesToClear = 10;
             }
@@ -40,7 +40,7 @@ public class TrafficLight {
                 System.out.println("----------------------------------------------------------- ");
                 while (vehiclesToClear > 0 && !queue.isEmpty()) {
                     Vehicle vehicle = queue.poll();
-                    System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
+                    System.out.println( vehicle.getLicensePlate() + " at " + direction);
                     vehiclesToClear--;
                 }
                 return;
@@ -54,7 +54,7 @@ public class TrafficLight {
         }
 
         // Oost sensor
-        if (hasSensor && direction.equals("East") && queue.isEmpty()) {
+        if (hasSensor && direction.equals("Oost") && queue.isEmpty()) {
             System.out.println("----------------------------------------------------------- ");
             System.out.println("Sensor detected no vehicles on " + direction );
             System.out.println("----------------------------------------------------------- ");
@@ -71,7 +71,7 @@ public class TrafficLight {
                 System.out.println("West sensor detected more than 10 vehicles. ");
                 while (vehiclesToClear > 0 && !queue.isEmpty()) {
                     Vehicle vehicle = queue.poll();
-                    System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
+                    System.out.println( vehicle.getLicensePlate() + " at " + direction);
                     vehiclesToClear--;
                 }
                 return;
@@ -85,11 +85,11 @@ public class TrafficLight {
         }
 
         // Noord sensor
-        if (hasSensor && direction.equals("North") && queue.size() < 5 && !queue.isEmpty()) {
+        if (hasSensor && direction.equals("Noord") && queue.size() < 5 && !queue.isEmpty()) {
             System.out.println("North sensor detected fewer than 5 vehicles. ");
             while (!queue.isEmpty()) {
                 Vehicle vehicle = queue.poll();
-                System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
+                System.out.println( vehicle.getLicensePlate() + " at " + direction);
             }
             return;
         }if (queue.isEmpty()) {
@@ -101,21 +101,21 @@ public class TrafficLight {
         int maxVehiclesToProcess = 5;
         if (!queue.isEmpty()) {
             System.out.println("----------------------------------------------------------- ");
-            System.out.println("Green light for " + direction + " road.");
+            System.out.println("Green light for " + direction);
             System.out.println("----------------------------------------------------------- ");
             int count = 0;
             while (!queue.isEmpty() && count < maxVehiclesToProcess) {
                 Vehicle vehicle = queue.poll();
-                System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
+                System.out.println( vehicle.getLicensePlate() + " at " + direction);
                 count++;
             }
             if (queue.isEmpty()) {
 
-                System.out.println("No more vehicles on " + direction + " road. ");
+                System.out.println("No more vehicles on " + direction);
             }
         } else {
             System.out.println("----------------------------------------------------------- ");
-            System.out.println("No vehicles on " + direction + " road.");
+            System.out.println("No vehicles on " + direction);
         }
     }
 }

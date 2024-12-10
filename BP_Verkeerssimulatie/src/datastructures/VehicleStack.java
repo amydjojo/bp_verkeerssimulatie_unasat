@@ -4,17 +4,17 @@ import models.Vehicle;
 
 public class VehicleStack {
 
-    private Vehicle[] stackArray; // Array to hold stack elements
-    private String[] directions;  // Array to hold directions
-    private int top;              // Index for the top element
-    private int maxSize;          // Maximum size of the stack
+    private Vehicle[] stackArray;
+    private String[] directions;
+    private int top;
+    private int maxSize;
 
-    // Constructor to initialize the stack with a given size
+
     public VehicleStack(int size) {
         this.maxSize = size;
         this.stackArray = new Vehicle[maxSize];
         this.directions = new String[maxSize];
-        this.top = -1; // Stack is initially empty
+        this.top = -1;
     }
 
     // Push a Vehicle and its direction onto the stack
@@ -23,8 +23,8 @@ public class VehicleStack {
             System.out.println("Stack is full. Cannot push vehicle: " + vehicle.getLicensePlate());
             return;
         }
-        stackArray[++top] = vehicle;     // Increment top and insert the vehicle
-        directions[top] = direction;     // Store the direction with the vehicle
+        stackArray[++top] = vehicle;
+        directions[top] = direction;
     }
 
     // Pop a Vehicle from the stack
@@ -33,13 +33,13 @@ public class VehicleStack {
             System.out.println("Stack is empty. Cannot pop vehicle.");
             return null;
         }
-        return stackArray[top--];        // Return the top vehicle and decrement top
+        return stackArray[top--];
     }
 
     // Pop a direction corresponding to the vehicle from the stack
     public String popDirection() {
 
-        return directions[top + 1];      // Return the direction corresponding to the popped vehicle
+        return directions[top + 1];
     }
 
     // Peek at the top Vehicle without removing it

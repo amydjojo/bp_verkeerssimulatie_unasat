@@ -4,9 +4,9 @@ package datastructures;
 public class Node<T> {
     private T data;
     private Node<T> next;
-    private Node<T> previous; // wordt gebruikt bij een doubly linked list
+    private Node<T> previous;
 
-    // Constructor for singly linked list node
+
     public Node(T data) {
         this.data = data;
         this.next = null;
