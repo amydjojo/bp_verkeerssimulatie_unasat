@@ -17,7 +17,7 @@ public class Simulation {
 
     public Simulation() {
         vehicleQueue = new VehicleQueue();
-        playbackStack = new VehicleStack(1000);
+        playbackStack = new VehicleStack(100);
 
         northLight = new TrafficLight("North", true);
         southLight = new TrafficLight("South", true);

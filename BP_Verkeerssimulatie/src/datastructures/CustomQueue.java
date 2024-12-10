@@ -4,7 +4,7 @@ import models.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 
-// Custom class for priority queue
+// Zelfgemaakte queue class
 public class CustomQueue {
     private List<Vehicle> queue;
 

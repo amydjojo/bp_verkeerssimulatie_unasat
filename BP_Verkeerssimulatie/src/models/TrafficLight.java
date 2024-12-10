@@ -37,6 +37,7 @@ public class TrafficLight {
             if (vehiclesToClear > 0) {
                 System.out.println("----------------------------------------------------------- ");
                 System.out.println("South sensor detected more than 10 vehicles. ");
+                System.out.println("----------------------------------------------------------- ");
                 while (vehiclesToClear > 0 && !queue.isEmpty()) {
                     Vehicle vehicle = queue.poll();
                     System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
@@ -44,6 +45,12 @@ public class TrafficLight {
                 }
                 return;
             }
+            if (queue.isEmpty()) {
+                System.out.println("Sensor detected no vehicles on " + direction );
+                System.out.println("----------------------------------------------------------- ");
+                return;
+            }
+
         }
 
         // Oost sensor
@@ -85,13 +92,17 @@ public class TrafficLight {
                 System.out.println( vehicle.getLicensePlate() + " at " + direction + " road.");
             }
             return;
+        }if (queue.isEmpty()) {
+            System.out.println("Sensor detected no vehicles on " + direction );
+            return;
         }
 
-        // Default behavior
+        //verkeerslicht zonder sensoren
         int maxVehiclesToProcess = 5;
         if (!queue.isEmpty()) {
             System.out.println("----------------------------------------------------------- ");
             System.out.println("Green light for " + direction + " road.");
+            System.out.println("----------------------------------------------------------- ");
             int count = 0;
             while (!queue.isEmpty() && count < maxVehiclesToProcess) {
                 Vehicle vehicle = queue.poll();
